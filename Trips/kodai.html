@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodaikanal Escape</title>
+
+    <!-- Icons + Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400;500;600;700&family=Inclusive+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #121212;
+            font-family: 'Inclusive Sans', sans-serif;
+            color: #EAEAEA;
+        }
+
+        /* BACK BUTTON */
+        .back-button {
+            position: absolute;
+            left: 2rem;
+            top: 2rem;
+            color: #EAEAEA;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            background-color: rgba(30,30,30,0.7);
+            border: 1px solid #444;
+            border-radius: 8px;
+            z-index: 20;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #00A8FF;
+            color: #fff;
+        }
+
+        /* TOP TITLE AREA */
+        .top-section {
+            padding-top: 4.5rem;
+            padding-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-family: 'Edu SA Beginner', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #00A8FF;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .page-subtitle {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            color: #999;
+        }
+
+        /* SLIDESHOW FULL WIDTH */
+        .slideshow-wrapper {
+            width: 100%;
+            height: 75vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #slideshow-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* FILM GRAIN OVERLAY */
+        .slideshow-wrapper::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px);
+            background-size: 3px 3px;
+            mix-blend-mode: soft-light;
+            opacity: 0.25;
+            z-index: 4;
+        }
+
+        /* GRADIENT VIGNETTE */
+        #slideshow-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at top, rgba(0,0,0,0.45), transparent 55%),
+                radial-gradient(circle at bottom, rgba(0,0,0,0.65), transparent 55%);
+            z-index: 3;
+        }
+
+        /* SLIDES – DREAMY PAN + BLUR CROSSFADE + FIT INSIDE */
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: contain;
+            background-position: 45% 50%;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transform: scale(1.02);
+            filter: blur(4px);
+            transition:
+                opacity 2.2s ease-in-out,
+                transform 9s ease-out,
+                filter 2.2s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1.0);
+            filter: blur(0);
+            z-index: 2;
+            animation: dreamyPan 14s linear infinite;
+        }
+
+        @keyframes dreamyPan {
+            0%   { background-position: 40% 50%; }
+            50%  { background-position: 50% 50%; }
+            100% { background-position: 60% 50%; }
+        }
+
+        /* LOADING / ERROR */
+        .loading-indicator,
+        .error-message {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hidden { display: none; }
+
+        .error-message {
+            padding: 1.5rem 2rem;
+            background: rgba(0,0,0,0.75);
+            border-radius: 12px;
+            border: 1px solid #ff6b6b;
+            color: #ffb0b0;
+            font-size: 0.95rem;
+        }
+
+        /* FLOATING CAPTION */
+        .floating-caption {
+            position: absolute;
+            left: 50%;
+            bottom: 3rem;
+            transform: translateX(-50%);
+            padding: 1rem 1.5rem;
+            max-width: 70%;
+            background: rgba(15,15,15,0.65);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: #f5f5f5;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .floating-caption i {
+            color: #00A8FF;
+            font-size: 0.9rem;
+        }
+
+        /* GLASSMORPH DESCRIPTION CARD */
+        .trip-description {
+            max-width: 950px;
+            margin: 3rem auto 4rem;
+            padding: 2rem 2.5rem;
+            border-radius: 18px;
+            background: radial-gradient(circle at top left, rgba(0,168,255,0.18), transparent 55%),
+                        rgba(20,20,20,0.9);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .trip-description h3 {
+            font-family: 'Edu SA Beginner', cursive;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #00A8FF;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .trip-description p {
+            margin-bottom: 1.2rem;
+            color: #ddd;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .page-title { font-size: 2.4rem; }
+            .slideshow-wrapper { height: 55vh; }
+            .floating-caption {
+                bottom: 1.5rem;
+                max-width: 90%;
+                font-size: 0.85rem;
+            }
+            .trip-description {
+                margin: 2rem 1rem 3rem;
+                padding: 1.5rem 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- BACK BUTTON -->
+    <a class="back-button" href="../index.html#trips">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
+    <!-- TITLE + SUBTITLE -->
+    <div class="top-section">
+        <h1 class="page-title">
+            <i class="fas fa-tree"></i>
+            Kodaikanal Escape
+        </h1>
+        <p class="page-subtitle">
+            Chilly air, tall pines, lakeside silence, and the kind of calm that resets you from the inside out.
+        </p>
+    </div>
+
+    <!-- SLIDESHOW -->
+    <div class="slideshow-wrapper">
+        <div id="slideshow-container">
+            <div class="loading-indicator" id="loading">
+                <i class="fas fa-spinner fa-spin"></i><br>
+                Loading memories...
+            </div>
+
+            <div class="error-message hidden" id="error">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                Could not load images. Please check the Kodai image paths.
+            </div>
+        </div>
+
+        <!-- FLOATING CAPTION -->
+        <div class="floating-caption">
+            <i class="fas fa-cloud"></i>
+            <span>Kodai felt like life slowed down just enough for us to hear ourselves breathe again.</span>
+        </div>
+    </div>
+
+    <!-- GLASSMORPH DESCRIPTION CARD -->
+    <div class="trip-description">
+        <h3><i class="fas fa-map-marker-alt"></i> About This Trip</h3>
+        <p>
+            Kodai was mist curling through pine trees, long lake walks, and that cold breeze that somehow wakes you up and relaxes you at the same time.
+        </p>
+        <p>
+            From foggy viewpoints to laughing in the cold to drinking something warm just to keep talking, Kodai ended up feeling like its own little world — quiet, green, and stupidly peaceful.
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const total = 244;
+            const path = '../image/Trips/Kodai/';
+            const ext = '.jpg';
+            const delay = 6000;
+
+            const container = document.getElementById('slideshow-container');
+            const loading = document.getElementById('loading');
+            const errorBox = document.getElementById('error');
+
+            const urls = [];
+            for (let i = 1; i <= total; i++) {
+                urls.push(`${path}${i}${ext}`);
+            }
+            urls.sort(() => Math.random() - 0.5);
+
+            let valid = [];
+            let loaded = 0;
+            let failed = 0;
+
+            urls.forEach(url => {
+                const img = new Image();
+                img.onload = () => { loaded++; valid.push(url); checkDone(); };
+                img.onerror = () => { failed++; checkDone(); };
+                img.src = url;
+            });
+
+            function checkDone() {
+                if (loaded + failed === urls.length) {
+                    loading.classList.add('hidden');
+                    if (valid.length === 0) {
+                        errorBox.classList.remove('hidden');
+                        return;
+                    }
+                    startSlideshow(valid);
+                }
+            }
+
+            function startSlideshow(images) {
+                const slides = images.map(u => {
+                    const div = document.createElement('div');
+                    div.className = 'slide';
+                    div.style.backgroundImage = `url('${u}')`;
+                    container.appendChild(div);
+                    return div;
+                });
+
+                if (!slides.length) return;
+
+                let i = 0;
+
+                function cycle() {
+                    const prev = i === 0 ? slides.length - 1 : i - 1;
+                    slides[prev].classList.remove('active');
+                    slides[i].classList.add('active');
+                    i = (i + 1) % slides.length;
+                }
+
+                cycle();
+                setInterval(cycle, delay);
+            }
+        });
+    </script>
+</body>
+</html>
