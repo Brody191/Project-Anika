@@ -58,7 +58,7 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   color: white;
   text-decoration: none;
   display: flex;
- align-items: center;
+  align-items: center;
   gap: 1rem;
 }
 .logo i { color: var(--primary-accent); font-size: 2rem; }
@@ -72,7 +72,36 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   transition: color .3s;
 }
 .nav a:hover { color: var(--primary-accent); }
-#menu-toggle, .menu-icon { display: none; }
+
+/* --- NEW: Mobile Menu Icon --- */
+.menu-icon {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Above the nav */
+}
+.menu-icon span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--text-light);
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+/* --- NEW: Animate menu icon to an "X" when active --- */
+.menu-icon.active span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-icon.active span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
 
 /* --- Story Section --- */
 .story-intro-layout {
@@ -126,7 +155,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   height: 100%;
   min-height: 500px;
 }
-
 .photo-slideshow {
   position: relative;
   width: 100%;
@@ -134,7 +162,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   overflow: hidden;
   border-radius: var(--radius);
 }
-
 .photo-slide {
   position: absolute;
   top: 0;
@@ -144,20 +171,13 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
-
-.photo-slide.active {
-  opacity: 1;
-  z-index: 1;
-}
-
+.photo-slide.active { opacity: 1; z-index: 1; }
 .photo-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
-/* Gradient overlay at bottom */
 .photo-slide::after {
   content: '';
   position: absolute;
@@ -169,8 +189,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   pointer-events: none;
   z-index: 2;
 }
-
-/* Navigation dots */
 .photo-dots {
   position: absolute;
   bottom: 15px;
@@ -180,7 +198,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   gap: 12px;
   z-index: 3;
 }
-
 .photo-dot {
   width: 10px;
   height: 10px;
@@ -190,12 +207,10 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   transition: all 0.3s ease;
   border: 2px solid transparent;
 }
-
 .photo-dot:hover {
   background-color: rgba(255, 255, 255, 0.7);
   transform: scale(1.2);
 }
-
 .photo-dot.active {
   background-color: var(--primary-accent);
   border-color: white;
@@ -271,7 +286,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   max-width: 800px;
   margin: 0 auto 2.5rem;
 }
-
 .timeline-wrapper {
   width: 100%;
   display: flex;
@@ -279,7 +293,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   overflow-x: hidden;
   padding: 2rem 0;
 }
-
 .timeline {
   display: flex;
   justify-content: center;
@@ -289,7 +302,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   width: fit-content;
   margin: 0 auto;
 }
-
 .timeline::before {
   content: '';
   position: absolute;
@@ -300,7 +312,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   height: 2px;
   background-color: #333;
 }
-
 .timeline-item {
   min-width: 120px;
   text-decoration: none;
@@ -309,7 +320,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   align-items: center;
   gap: .5rem;
 }
-
 .timeline-dot {
   width: 16px; height: 16px;
   background: var(--component-dark);
@@ -361,13 +371,7 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   margin: 0 auto;
   padding: 2rem 20px;
 }
-
-.v-timeline {
-  position: relative;
-  padding: 2rem 0;
-}
-
-/* Center line */
+.v-timeline { position: relative; padding: 2rem 0; }
 .v-timeline::before {
   content: '';
   position: absolute;
@@ -378,7 +382,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   background: #333;
   transform: translateX(-50%);
 }
-
 .v-timeline-item {
   position: relative;
   margin-bottom: 4rem;
@@ -386,20 +389,16 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   text-decoration: none;
   color: inherit;
 }
-
-/* Alternating left-right layout */
 .v-timeline-item:nth-child(odd) .v-timeline-content {
   margin-left: auto;
   margin-right: 0;
   padding-left: 3rem;
 }
-
 .v-timeline-item:nth-child(even) .v-timeline-content {
   margin-right: auto;
   margin-left: 0;
   padding-right: 3rem;
 }
-
 .v-timeline-content {
   background: var(--component-dark);
   border: 1px solid #333;
@@ -410,14 +409,11 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   transition: all 0.3s ease;
   box-shadow: var(--shadow-dark);
 }
-
 .v-timeline-item:hover .v-timeline-content {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 168, 255, 0.2);
   border-color: var(--primary-accent);
 }
-
-/* Timeline dot */
 .v-timeline-content::before {
   content: '';
   position: absolute;
@@ -429,15 +425,8 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   border-radius: 50%;
   z-index: 2;
 }
-
-.v-timeline-item:nth-child(odd) .v-timeline-content::before {
-  left: -3.5rem;
-}
-
-.v-timeline-item:nth-child(even) .v-timeline-content::before {
-  right: -3.5rem;
-}
-
+.v-timeline-item:nth-child(odd) .v-timeline-content::before { left: -3.5rem; }
+.v-timeline-item:nth-child(even) .v-timeline-content::before { right: -3.5rem; }
 .v-timeline-content img {
   width: 100%;
   height: 250px;
@@ -445,13 +434,11 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   border-radius: var(--radius);
   margin-bottom: 1rem;
 }
-
 .v-timeline-content h3 {
   color: var(--primary-accent);
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
 }
-
 .v-timeline-content p {
   color: var(--text-muted);
   line-height: 1.6;
@@ -466,75 +453,20 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   border-top: 1px solid #333;
 }
 
-/* --- Responsive --- */
-@media (max-width: 992px) {
-  .carousel-slide { flex: 0 0 100%; min-width: 100%; }
-  .carousel-button.prev { left: 10px; }
-  .carousel-button.next { right: 10px; }
-  .card-grid { grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); }
-  
-  /* Responsive vertical timeline */
-  .v-timeline::before {
-    left: 20px;
-  }
-  
-  .v-timeline-item:nth-child(odd) .v-timeline-content,
-  .v-timeline-item:nth-child(even) .v-timeline-content {
-    width: calc(100% - 60px);
-    margin-left: 60px;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  
-  .v-timeline-item:nth-child(odd) .v-timeline-content::before,
-  .v-timeline-item:nth-child(even) .v-timeline-content::before {
-    left: -2.5rem;
-    right: auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .section { padding: 3rem 20px; }
-  .story-intro-layout { grid-template-columns: 1fr; }
-  .story-image { order: -1; margin-bottom: 2rem; min-height: 400px; }
-  .content-block img { height: 300px; }
-  
-  /* Timeline adjustments for mobile */
-  .trip-page-header h2 {
-    font-size: 2.5rem;
-  }
-  
-  .v-timeline-content img {
-    height: 200px;
-  }
-  
-  .v-timeline-content h3 {
-    font-size: 1.5rem;
-  }
-}
-
-/* --- For Her Scroll Story (BASE) --- */
-.for-her-section {
-  padding: 4rem 0 0;
-}
-
+/* --- For Her Section --- */
+.for-her-section { padding: 4rem 0 0; }
 .for-her-subtitle {
   text-align: center;
   max-width: 650px;
   margin: 0 auto 2rem;
 }
-
-.for-her-panels {
-  width: 100%;
-}
-
+.for-her-panels { width: 100%; }
 .for-her-panel {
   position: relative;
   height: 100vh;
   width: 100%;
   background-color: #000;
-  background-size: contain;      /* full image visible */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   display: flex;
@@ -542,8 +474,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   justify-content: center;
   overflow: hidden;
 }
-
-/* subtle vignette & dark overlay */
 .for-her-panel::before {
   content: '';
   position: absolute;
@@ -553,8 +483,6 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
     radial-gradient(circle at bottom, rgba(0,0,0,0.75), transparent 60%);
   z-index: 1;
 }
-
-/* glassy text box */
 .for-her-overlay {
   position: relative;
   z-index: 2;
@@ -563,59 +491,53 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   background: rgba(10,10,10,0.7);
   border: 1px solid rgba(255,255,255,0.25);
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   max-width: 700px;
   text-align: center;
   box-shadow: 0 18px 40px rgba(0,0,0,0.7);
 }
-
 .for-her-line {
   font-family: var(--font-heading);
   font-size: 2.2rem;
   color: var(--text-light);
 }
 
-/* mobile tweaks */
-@media (max-width: 768px) {
-  .for-her-line {
-    font-size: 1.6rem;
-  }
-  .for-her-overlay {
-    margin: 0 1rem;
-    padding: 1.2rem 1.5rem;
-  }
+/* --- NEW: Audio Control Button --- */
+#audio-control {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid #444;
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+#audio-control:hover {
+  background: var(--primary-accent);
+  color: white;
 }
 
-/* ===================================================== */
-/* FOR HER ENHANCEMENTS: fade-in, parallax, hearts */
-/* (Overrides / extends base definitions) */
-/* ===================================================== */
-
+/* --- For Her Enhancements --- */
 .for-her-panel {
   opacity: 0;
   transform: translateY(80px);
   transition: opacity 1.2s ease, transform 1.2s ease;
   will-change: transform, opacity;
 }
-
-.for-her-panel.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Text fade-up inside active panel */
+.for-her-panel.active { opacity: 1; transform: translateY(0); }
 .for-her-line {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 1s ease, transform 1s ease;
 }
-
-.for-her-panel.active .for-her-line {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Heart particles used by JS */
+.for-her-panel.active .for-her-line { opacity: 1; transform: translateY(0); }
 .heart-particle {
   position: absolute;
   font-size: 22px;
@@ -624,17 +546,78 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   pointer-events: none;
   z-index: 0;
 }
-
 @keyframes floatUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.7);
+  0% { opacity: 0; transform: translateY(40px) scale(0.7); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-220px) scale(1.8); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+  .carousel-slide { flex: 0 0 100%; min-width: 100%; }
+  .carousel-button.prev { left: 10px; }
+  .carousel-button.next { right: 10px; }
+  .card-grid { grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); }
+  
+  .v-timeline::before { left: 20px; }
+  .v-timeline-item:nth-child(odd) .v-timeline-content,
+  .v-timeline-item:nth-child(even) .v-timeline-content {
+    width: calc(100% - 60px);
+    margin-left: 60px;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-220px) scale(1.8);
+  .v-timeline-item:nth-child(odd) .v-timeline-content::before,
+  .v-timeline-item:nth-child(even) .v-timeline-content::before {
+    left: -2.5rem;
+    right: auto;
   }
 }
+
+@media (max-width: 768px) {
+  .header-inner { padding: 0 20px; }
+  .section { padding: 3rem 20px; }
+  .story-intro-layout { grid-template-columns: 1fr; }
+  .story-image { order: -1; margin-bottom: 2rem; min-height: 400px; }
+  .content-block img { height: 300px; }
+  
+  /* --- MODIFIED: Show Menu Icon on Mobile --- */
+  .menu-icon { display: flex; }
+  
+  /* --- NEW: Mobile Navigation Styles --- */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100vh;
+    background-color: var(--component-dark);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+  }
+  .nav.active {
+    transform: translateX(0);
+  }
+  .nav a {
+    font-size: 1.5rem;
+  }
+  
+  .trip-page-header h2 { font-size: 2.5rem; }
+  .v-timeline-content img { height: 200px; }
+  .v-timeline-content h3 { font-size: 1.5rem; }
+  
+  .for-her-line { font-size: 1.6rem; }
+  .for-her-overlay { margin: 0 1rem; padding: 1.2rem 1.5rem; }
+  
+  /* --- NEW: Reposition audio button on mobile --- */
+  #audio-control {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+/* --- FIX: Removed extra closing brace that was here --- */
