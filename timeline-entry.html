@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Entry - Our Memories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="index.html">Our Memories</a>
+        <nav class="nav">
+            <a href="index.html#timeline"><i class="fas fa-arrow-left"></i> Back to Timeline</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+        <section class="trip-page-header">
+            <div class="container">
+                <!-- UPDATE THIS TITLE FOR EACH PAGE -->
+                <h2>Movie Marathon Weekend</h2>
+                <p class="trip-meta">March 2024</p>
+            </div>
+        </section>
+
+        <section class="page-content">
+            <div class="container">
+                <!-- ADD YOUR CONTENT HERE -->
+                <p>This is where you'll write about the memories from this month. Add your stories, inside jokes, and favorite moments.</p>
+                <div class="gallery-grid" style="margin-top: 2rem;">
+                    <!-- Add photos for this month's entry -->
+                    <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=2070&auto=format&fit=crop" alt="Placeholder image">
+                    <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963e?q=80&w=2070&auto=format&fit=crop" alt="Placeholder image">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p><i class="far fa-copyright"></i> <span id="year"></span> Our Memories</p>
+        </div>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

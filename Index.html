@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project Anika</title>
+    <meta name="description" content="Our trips, adventures, and favorite memories." />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@400;500;600;700&family=Inclusive+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header">
+        <div class="header-inner">
+          <a class="logo" href="/index.html">
+            <i class="fa-regular fa-snowflake"></i> Project Anika
+          </a>
+          <input type="checkbox" id="menu-toggle" />
+          <label for="menu-toggle" class="menu-icon"><span></span><span></span><span></span></label>
+          <nav class="nav">
+            <a href="#story"><i class="fa-solid fa-book-open"></i> Our Story</a>
+            <a href="#timeline"><i class="fa-solid fa-stream"></i> Timeline</a>
+            <a href="#trips"><i class="fa-solid fa-map-marked-alt"></i> Trips</a>
+            <a href="#for-her"><i class="fa-solid fa-heart"></i> For Her</a>
+          </nav>
+        </div>
+      </header>
+
+    <main>
+      <!-- Story Section -->
+      <section id="story" class="section">
+        <div class="story-intro-layout">
+          <div class="story-text">
+            <h2 class="section-heading"><i class="fas fa-chevron-right"></i> How Did We Meet?</h2>
+            <div class="quote-box">
+              <p class="quote-title">One day, three autumns</p>
+              <p class="quote-subtitle">(Yī rì sān qiū)</p>
+              <p class="quote-body">A chinese idiom that is used when you miss someone so much, one day feels like long as three years.</p>
+            </div>
+            <p>An Extremely Long Time Ago, there existed a separate version of me, and a separate version of her.</p>
+            <ul>
+              <li>Then we decided to Meet. It all Started on July 15th 2024. When.</li>
+              <li>She joined us, I was already done in life and cooked from every direction possible, I was so deprived of intellectual simulation and conversations with someone who had the ability to use their frontal cortex before moving their lips, That is when she came into my life.</li>
+            </ul>
+          </div>
+          
+          <!-- PHOTO SLIDESHOW GALLERY -->
+          <div class="story-image">
+            <div class="photo-slideshow">
+              <!-- Photo 1 -->
+              <div class="photo-slide active">
+                <img src="image/Her.jpg" alt="Beautiful moment together">
+              </div>
+              <!-- Photo 2 -->
+              <div class="photo-slide">
+                <img src="image/Her 2.jpg" alt="Memorable day">
+              </div>
+              <!-- Photo 3 -->
+              <div class="photo-slide">
+                <img src="image/Her 3.jpg" alt="Cherished times">
+              </div>
+              <!-- Photo 4 -->
+              <div class="photo-slide">
+                <img src="image/Her 4.jpg" alt="Unforgettable experience">
+              </div>
+              <!-- Photo 5 -->
+              <div class="photo-slide">
+                <img src="image/Her 5.jpg" alt="Special moments">
+              </div>
+              
+              <!-- Navigation Dots -->
+              <div class="photo-dots">
+                <span class="photo-dot active" data-slide="0"></span>
+                <span class="photo-dot" data-slide="1"></span>
+                <span class="photo-dot" data-slide="2"></span>
+                <span class="photo-dot" data-slide="3"></span>
+                <span class="photo-dot" data-slide="4"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CAROUSEL -->
+        <div class="carousel-container">
+          <div class="carousel-viewport">
+            <div class="carousel-track">
+
+              <!-- SLIDE 1 -->
+              <div class="content-block carousel-slide">
+                <h3 class="block-title"><i class="fa-solid fa-diamond"></i> And just like that, everything changed.</h3>
+                <p class="quote-line">"I have crossed Oceans of Time to be With you" ~ Count Dracula</p>
+                <img src="image/Left.jpg" alt="A personal moment, view from behind">
+              </div>
+
+              <!-- SLIDE 2 -->
+              <div class="content-block carousel-slide">
+                <h3 class="block-title"><i class="fa-solid fa-circle-nodes"></i> Okay But How Did We Actually Meet?</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> We Met At Work (Enthoru Romantic Ayitulla Storytelling Ann)</li>
+                </ul>
+                <img src="image/Right.jpg" alt="View of two pairs of feet on a bench overlooking a scenic valley">
+              </div>
+
+              <!-- SLIDE 3 -->
+              <div class="content-block carousel-slide">
+                <h3 class="block-title"><i class="fa-solid fa-star"></i> Future Adventures</h3>
+                <p>Placeholder for the next chapter of our story. So many more memories to make.</p>
+                <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=1974&auto=format&fit=crop" alt="Scenic adventure destination">
+              </div>
+
+              <!-- SLIDE 4 -->
+              <div class="content-block carousel-slide">
+                <h3 class="block-title"><i class="fa-solid fa-mug-hot"></i> Coffee Dates</h3>
+                <p>Countless hours spent in cozy cafes, talking about everything and nothing.</p>
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1974&auto=format&fit=crop" alt="Coffee cups">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+          <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </section>
+
+      <!-- Timeline Section -->
+      <section id="timeline" class="section">
+        <h2>Our Timeline</h2>
+        <p class="section-subtitle">So the story begins in June 2024, that is when she had the fortune of being in my presence...</p>
+
+        <div class="timeline-wrapper">
+          <div class="timeline year-timeline">
+            <a href="Timeline/2024/2024.html" class="timeline-item">
+              <div class="timeline-dot"></div><div class="timeline-content"><h3>2024</h3></div>
+            </a>
+            <a href="Timeline/2025/2025.html" class="timeline-item">
+              <div class="timeline-dot"></div><div class="timeline-content"><h3>2025</h3></div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trips Section -->
+      <section id="trips" class="section">
+        <h2>Featured Trips</h2>
+
+        <div class="card-grid trips">
+
+          <!-- COORG -->
+          <a class="card" href="Trips/coorg.html">
+            <div class="card-cover" style="background-image:url('../image/Coorg.jpg')"></div>
+            <div class="card-body">
+              <h3><i class="fa-brands fa-ethereum"></i> Coorg Getaway</h3>
+            </div>
+          </a>
+
+          <!-- OOTY -->
+          <a class="card" href="Trips/ooty.html">
+            <div class="card-cover" style="background-image:url('../image/Trips/Ooty/1.jpg')"></div>
+            <div class="card-body">
+              <h3><i class="fa-brands fa-ethereum"></i> Escape to Ooty</h3>
+            </div>
+          </a>
+
+          <!-- PONDI -->
+          <a class="card" href="Trips/pondi.html">
+            <div class="card-cover" style="background-image:url('../image/Pondi.jpg')"></div>
+            <div class="card-body">
+              <h3><i class="fa-brands fa-ethereum"></i> Pondi Strolls</h3>
+            </div>
+          </a>
+
+          <!-- KODAI -->
+          <a class="card" href="Trips/kodai.html">
+            <div class="card-cover" style="background-image:url('../image/Kodai.jpg')"></div>
+            <div class="card-body">
+              <h3><i class="fa-brands fa-ethereum"></i> Kodaikanal Dreams</h3>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- For Her -->
+      <section id="for-her" class="section for-her-section">
+        <div class="container content-container">
+          <h2 class="section-heading"><i class="fas fa-chevron-right"></i> Just For Her</h2>
+          <p class="for-her-subtitle">
+            A little scroll-story for you, told in photos and one very specific sentence.
+          </p>
+        </div>
+
+        <div class="for-her-panels">
+
+          <!-- PANEL 1: images 1–5 -->
+          <div class="for-her-panel" data-start="1" data-end="5">
+            <div class="for-her-overlay">
+              <p class="for-her-line">Behind every</p>
+            </div>
+          </div>
+
+          <!-- PANEL 2: images 6–10 -->
+          <div class="for-her-panel" data-start="6" data-end="10">
+            <div class="for-her-overlay">
+              <p class="for-her-line">bad photo of me</p>
+            </div>
+          </div>
+
+          <!-- PANEL 3: images 11–16 -->
+          <div class="for-her-panel" data-start="11" data-end="16">
+            <div class="for-her-overlay">
+              <p class="for-her-line">is my boyfriend</p>
+            </div>
+          </div>
+
+          <!-- PANEL 4: images 17–21 -->
+          <div class="for-her-panel" data-start="17" data-end="21">
+            <div class="for-her-overlay">
+              <p class="for-her-line">who refuses to delete them</p>
+            </div>
+          </div>
+
+          <!-- PANEL 5: images 22–27 -->
+          <div class="for-her-panel" data-start="22" data-end="27">
+            <div class="for-her-overlay">
+              <p class="for-her-line">
+                because there is no such thing as a bad picture of his gorgeous girlfriend.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <p><i class="far fa-copyright"></i> <span id="year"></span> Project Anika</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
