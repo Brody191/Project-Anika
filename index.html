@@ -15,8 +15,10 @@
           <a class="logo" href="/index.html">
             <i class="fa-regular fa-snowflake"></i> Project Anika
           </a>
-          <input type="checkbox" id="menu-toggle" />
-          <label for="menu-toggle" class="menu-icon"><span></span><span></span><span></span></label>
+          <!-- The menu-icon is now a button for better accessibility and JS control -->
+          <button class="menu-icon" aria-label="Open navigation menu">
+            <span></span><span></span><span></span>
+          </button>
           <nav class="nav">
             <a href="#story"><i class="fa-solid fa-book-open"></i> Our Story</a>
             <a href="#timeline"><i class="fa-solid fa-stream"></i> Timeline</a>
@@ -148,32 +150,36 @@
         <div class="card-grid trips">
 
           <!-- COORG -->
+          <!-- FIX: Removed ../ from path -->
           <a class="card" href="Trips/coorg.html">
-            <div class="card-cover" style="background-image:url('../image/Coorg.jpg')"></div>
+            <div class="card-cover" style="background-image:url('image/Coorg.jpg')"></div>
             <div class="card-body">
               <h3><i class="fa-brands fa-ethereum"></i> Coorg Getaway</h3>
             </div>
           </a>
 
           <!-- OOTY -->
+          <!-- FIX: Removed ../ from path -->
           <a class="card" href="Trips/ooty.html">
-            <div class="card-cover" style="background-image:url('../image/Trips/Ooty/1.jpg')"></div>
+            <div class="card-cover" style="background-image:url('image/Trips/Ooty/1.jpg')"></div>
             <div class="card-body">
               <h3><i class="fa-brands fa-ethereum"></i> Escape to Ooty</h3>
             </div>
           </a>
 
           <!-- PONDI -->
+          <!-- FIX: Removed ../ from path -->
           <a class="card" href="Trips/pondi.html">
-            <div class="card-cover" style="background-image:url('../image/Pondi.jpg')"></div>
+            <div class="card-cover" style="background-image:url('image/Pondi.jpg')"></div>
             <div class="card-body">
               <h3><i class="fa-brands fa-ethereum"></i> Pondi Strolls</h3>
             </div>
           </a>
 
           <!-- KODAI -->
+          <!-- FIX: Removed ../ from path -->
           <a class="card" href="Trips/kodai.html">
-            <div class="card-cover" style="background-image:url('../image/Kodai.jpg')"></div>
+            <div class="card-cover" style="background-image:url('image/Kodai.jpg')"></div>
             <div class="card-body">
               <h3><i class="fa-brands fa-ethereum"></i> Kodaikanal Dreams</h3>
             </div>
@@ -186,6 +192,10 @@
       <section id="for-her" class="section for-her-section">
         <div class="container content-container">
           <h2 class="section-heading"><i class="fas fa-chevron-right"></i> Just For Her</h2>
+          <!-- ADDED: Audio control button -->
+          <button id="audio-control" class="audio-button" aria-label="Play music">
+            <i class="fas fa-volume-off"></i>
+          </button>
           <p class="for-her-subtitle">
             A little scroll-story for you, told in photos and one very specific sentence.
           </p>
