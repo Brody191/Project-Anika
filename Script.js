@@ -6,10 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearSpan = document.getElementById('year');
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
+  // ================================================================
+  // MOBILE NAVIGATION
+  // ================================================================
+  const menuIcon = document.querySelector('.menu-icon');
+  const nav = document.querySelector('.nav');
+
+  if (menuIcon && nav) {
+    menuIcon.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuIcon.classList.toggle('active');
+    });
+  }
 
 
   // ================================================================
-  // MAIN SLIDESHOWS (Handles ALL .photo-slideshow blocks)
+  // MAIN SLIDESHOW (Handles ALL .photo-slideshow blocks)
   // ================================================================
   const slideshows = document.querySelectorAll('.photo-slideshow');
 
@@ -24,10 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSlide(n) {
       current = (n + slides.length) % slides.length;
-
       slides.forEach(s => s.classList.remove('active'));
       dots.forEach(d => d.classList.remove('active'));
-
       slides[current].classList.add('active');
       if (dots[current]) dots[current].classList.add('active');
     }
@@ -54,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-
   // ================================================================
   // CAROUSEL (index.html)
   // ================================================================
@@ -68,10 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (slides.length > 0) {
       let index = 0;
       let slideW = slides[0].getBoundingClientRect().width;
-      const gap = 32;
+      
+      // FIX: Dynamically calculate the gap from the CSS for accuracy.
+      const gap = slides.length > 1 ? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().right : 0;
+      
+      // Assumes the number of visible slides is 2 on desktop
+      const visibleSlides = window.innerWidth > 992 ? 2 : 1;
 
       function moveTo(i) {
-        const max = slides.length - 2;
+        const max = slides.length - visibleSlides;
         index = Math.max(0, Math.min(i, max));
         const offset = index * (slideW + gap);
         carouselTrack.style.transform = `translateX(-${offset}px)`;
@@ -92,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-
   // ================================================================
   // FOR HER — Scroll Panels + Parallax + Hearts + Music
   // ================================================================
@@ -101,17 +114,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (forHerPanels.length > 0) {
 
     // --- AUDIO SETUP ---
+    // FIX: Add user controls to comply with browser autoplay policies.
     const audio = new Audio("image/ForHer/song.mp3");
+    const audioControl = document.getElementById('audio-control');
     audio.loop = true;
-    audio.volume = 0;
-    let audioOn = false;
+    audio.volume = 0.5; // Start at a reasonable volume
+    let isAudioPlaying = false;
 
-    function fadeAudio(target, speed = 0.03) {
-      const interval = setInterval(() => {
-        if (target === 1 && audio.volume < 1) audio.volume += speed;
-        else if (target === 0 && audio.volume > 0) audio.volume -= speed;
-        else clearInterval(interval);
-      }, 80);
+    if (audioControl) {
+      audioControl.addEventListener('click', () => {
+        if (isAudioPlaying) {
+          audio.pause();
+          isAudioPlaying = false;
+          audioControl.innerHTML = '<i class="fas fa-volume-off"></i>';
+        } else {
+          audio.play();
+          isAudioPlaying = true;
+          audioControl.innerHTML = '<i class="fas fa-volume-high"></i>';
+        }
+      });
     }
 
     // --- OBSERVER: Fade in each panel when visible ---
@@ -120,24 +141,16 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
-
-            // Fade in music
-            if (!audioOn) {
-              audio.play();
-              audioOn = true;
-            }
-            fadeAudio(1);
-
           } else {
-            fadeAudio(0);
+            // Optional: remove active class when scrolling out of view
+            // entry.target.classList.remove("active");
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 } // Panel becomes active when 50% visible
     );
 
     forHerPanels.forEach(panel => observer.observe(panel));
-
 
 
     // --- FLOATING HEARTS ---
@@ -153,18 +166,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(() => {
       forHerPanels.forEach(panel => {
-        if (panel.classList.contains("active")) spawnHeart(panel);
+        // Only spawn hearts if the panel is active AND music is playing for effect
+        if (panel.classList.contains("active") && isAudioPlaying) {
+          spawnHeart(panel);
+        }
       });
     }, 850);
 
 
-
     // --- PARALLAX SCROLL ---
     window.addEventListener("scroll", () => {
+      const scrollPosition = window.pageYOffset;
       forHerPanels.forEach(panel => {
-        if (panel.classList.contains("active")) {
-          const offset = window.pageYOffset * 0.12;
-          panel.style.backgroundPositionY = `${50 + offset}px`;
+        const panelTop = panel.offsetTop;
+        const panelHeight = panel.offsetHeight;
+
+        // Check if the panel is in the viewport for performance
+        if (scrollPosition + window.innerHeight > panelTop && scrollPosition < panelTop + panelHeight) {
+          // Calculate a parallax effect relative to the panel's position
+          const offset = (scrollPosition - panelTop) * 0.12; 
+          panel.style.backgroundPositionY = `calc(50% + ${offset}px)`;
         }
       });
     });
@@ -172,3 +193,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 }); // DOMContentLoaded ends
+// FIX: Removed extra closing brace that was here
