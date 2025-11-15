@@ -78,10 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let index = 0;
       let slideW = slides[0].getBoundingClientRect().width;
       
-      // FIX: Dynamically calculate the gap from the CSS for accuracy.
       const gap = slides.length > 1 ? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().right : 0;
       
-      // Assumes the number of visible slides is 2 on desktop
       const visibleSlides = window.innerWidth > 992 ? 2 : 1;
 
       function moveTo(i) {
@@ -113,12 +111,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (forHerPanels.length > 0) {
 
+    // --- SET BACKGROUND IMAGES FOR EACH PANEL ---
+    // CRITICAL FIX: Dynamically set background images based on data attributes
+    forHerPanels.forEach(panel => {
+      const start = parseInt(panel.getAttribute('data-start'));
+      const end = parseInt(panel.getAttribute('data-end'));
+      
+      if (!isNaN(start) && !isNaN(end)) {
+        // Pick a random image from the range
+        const randomNum = Math.floor(Math.random() * (end - start + 1)) + start;
+        // Use correct case-sensitive path
+        panel.style.backgroundImage = `url('image/ForHer/${randomNum}.jpg')`;
+      }
+    });
+
     // --- AUDIO SETUP ---
-    // FIX: Add user controls to comply with browser autoplay policies.
     const audio = new Audio("image/ForHer/song.mp3");
     const audioControl = document.getElementById('audio-control');
+    
+    // Add error handling for missing audio file
+    audio.addEventListener('error', (e) => {
+      console.warn('Audio file not found or failed to load');
+      if (audioControl) {
+        audioControl.style.display = 'none'; // Hide button if audio fails
+      }
+    });
+    
     audio.loop = true;
-    audio.volume = 0.5; // Start at a reasonable volume
+    audio.volume = 0.5;
     let isAudioPlaying = false;
 
     if (audioControl) {
@@ -128,7 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
           isAudioPlaying = false;
           audioControl.innerHTML = '<i class="fas fa-volume-off"></i>';
         } else {
-          audio.play();
+          audio.play().catch(err => {
+            console.warn('Could not play audio:', err);
+          });
           isAudioPlaying = true;
           audioControl.innerHTML = '<i class="fas fa-volume-high"></i>';
         }
@@ -141,13 +163,10 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
-          } else {
-            // Optional: remove active class when scrolling out of view
-            // entry.target.classList.remove("active");
           }
         });
       },
-      { threshold: 0.5 } // Panel becomes active when 50% visible
+      { threshold: 0.5 }
     );
 
     forHerPanels.forEach(panel => observer.observe(panel));
@@ -166,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(() => {
       forHerPanels.forEach(panel => {
-        // Only spawn hearts if the panel is active AND music is playing for effect
         if (panel.classList.contains("active") && isAudioPlaying) {
           spawnHeart(panel);
         }
@@ -181,9 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const panelTop = panel.offsetTop;
         const panelHeight = panel.offsetHeight;
 
-        // Check if the panel is in the viewport for performance
         if (scrollPosition + window.innerHeight > panelTop && scrollPosition < panelTop + panelHeight) {
-          // Calculate a parallax effect relative to the panel's position
           const offset = (scrollPosition - panelTop) * 0.12; 
           panel.style.backgroundPositionY = `calc(50% + ${offset}px)`;
         }
@@ -192,5 +208,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-}); // DOMContentLoaded ends
-// FIX: Removed extra closing brace that was here
+});
