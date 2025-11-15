@@ -348,7 +348,7 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   box-shadow: 0 10px 25px rgba(0,168,255,.25);
 }
 .card-cover {
-  height: 550px;
+  height: 670px;
   background-size: cover;
   background-position: center;
 }
@@ -621,3 +621,4 @@ p { color: var(--text-muted); margin-bottom: 1rem; }
   }
 }
 /* --- FIX: Removed extra closing brace that was here --- */
+
